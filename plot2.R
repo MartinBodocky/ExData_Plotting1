@@ -1,0 +1,9 @@
+dat = read.csv("household_power_consumption.txt", header = TRUE, sep=";")
+com_dat <- subset(dat, Date %in% c("1/2/2007", "2/2/2007"))
+# this function will drop all values which cannot be converted
+gl <- as.numeric(as.character(com_dat$Global_active_power))
+com_dat$TimeStamp = strptime(paste(com_dat$Date, com_dat$Time), "%d/%m/%Y %H:%M:%S")
+par(mar=c(6,2,1,1))
+plot(y=gl ,x= com_dat$TimeStamp, type="l", ylab="Global Active Power (kilowatts)", xlab="")
+dev.copy(png, file="plot2.png", width = 480, height = 480)
+dev.off()
